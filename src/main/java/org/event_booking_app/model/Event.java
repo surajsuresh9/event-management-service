@@ -19,15 +19,15 @@ public class Event {
     private String eventName;
     private String eventOrganizer;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime startDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime endDate;
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private String startDate;
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private String endDate;
 
     public Event() {
     }
 
-    public Event(Long id, String eventName, String eventOrganizer, LocalDateTime startDate, LocalDateTime endDate) {
+    public Event(Long id, String eventName, String eventOrganizer, String startDate, String endDate) {
         this.id = id;
         this.eventName = eventName;
         this.eventOrganizer = eventOrganizer;
@@ -59,19 +59,19 @@ public class Event {
         this.eventOrganizer = eventOrganizer;
     }
 
-    public LocalDateTime getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 }

@@ -61,8 +61,8 @@ public class EventService {
     }
 
     public List<Event> getEventByStartDate(String from, String to) {
-        LocalDateTime fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
-        LocalDateTime toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
-        return eventRepo.findByStartDateBetween(fromDate, toDate);
+//        LocalDateTime fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
+//        LocalDateTime toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
+        return eventRepo.findByStartDateBetween(from, to);
     }
 }

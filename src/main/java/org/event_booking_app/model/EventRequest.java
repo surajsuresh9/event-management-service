@@ -12,16 +12,16 @@ public class EventRequest {
     private String eventName;
     private String eventOrganizer;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime startDate;
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private String startDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime endDate;
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private String endDate;
 
     public EventRequest() {
     }
 
-    public EventRequest(String eventName, String eventOrganizer, LocalDateTime startDate, LocalDateTime endDate) {
+    public EventRequest(String eventName, String eventOrganizer, String startDate, String endDate) {
         this.eventName = eventName;
         this.eventOrganizer = eventOrganizer;
         this.startDate = startDate;
@@ -44,19 +44,19 @@ public class EventRequest {
         this.eventOrganizer = eventOrganizer;
     }
 
-    public LocalDateTime getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 }

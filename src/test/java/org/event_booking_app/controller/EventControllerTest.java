@@ -1,10 +1,12 @@
 package org.event_booking_app.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.event_booking_app.model.Event;
 import org.event_booking_app.model.EventRequest;
 import org.event_booking_app.service.EventService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -31,7 +35,6 @@ class EventControllerTest {
 
     @MockitoBean
     private EventService eventService;
-    private EventController eventController;
     private Event event1;
     private Event event2;
     private Event event3;
@@ -40,10 +43,10 @@ class EventControllerTest {
 
     @BeforeEach
     public void setUp() {
-        event1 = new Event(1L, "TechnoGig", "ABC Events", LocalDateTime.now(), LocalDateTime.now().plusDays(3));
-        event2 = new Event(2L, "ABC Event", "Eventnetic", LocalDateTime.now().plusDays(6), LocalDateTime.now().plusDays(9));
-        event3 = new Event(3L, "DEF Event", "Formalin Works", LocalDateTime.of(2025, Month.JANUARY, 1, 12, 0), LocalDateTime.of(2025, Month.FEBRUARY, 1, 12, 0));
-        eventRequest = new EventRequest("TechnoGig", "ABC Events", LocalDateTime.now(), LocalDateTime.now().plusDays(3));
+        event1 = new Event(1L, "TechnoGig", "ABC Events", LocalDateTime.now().toString(), LocalDateTime.now().plusDays(3).toString());
+        event2 = new Event(2L, "ABC Event", "Eventnetic", LocalDateTime.now().plusDays(6).toString(), LocalDateTime.now().plusDays(9).toString());
+        event3 = new Event(3L, "DEF Event", "Formalin Works", LocalDateTime.of(2025, Month.JANUARY, 1, 12, 0).toString(), LocalDateTime.of(2025, Month.FEBRUARY, 1, 12, 0).toString());
+        eventRequest = new EventRequest("TechnoGig", "ABC Events", LocalDateTime.now().toString(), LocalDateTime.now().plusDays(3).toString());
         objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
     }
@@ -56,9 +59,16 @@ class EventControllerTest {
     @Test
     void getAllEvents() throws Exception {
         when(eventService.getAllEvents()).thenReturn(Arrays.asList(event1, event2, event3));
-        mockMvc.perform(get("/api/event/"))
+        MvcResult mvcResult = mockMvc.
+                perform(get("/api/event/"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andReturn();
+        List<Event> events = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<>() {
+        });
+
+        Assertions.assertEquals(3, events.size());
+
     }
 
     @Test

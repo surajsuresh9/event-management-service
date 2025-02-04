@@ -34,8 +34,9 @@ class EventServiceTest {
         autoCloseable = MockitoAnnotations.openMocks(this);
         eventRepo = mock(EventRepo.class);
         eventService = new EventService(eventRepo);
-        eventRequest = new EventRequest("TechnoGig", "ABC Events", LocalDateTime.now(), LocalDateTime.now().plusDays(3));
-        event = new Event(1L, "TechnoGig", "ABC Events", LocalDateTime.now(), LocalDateTime.now().plusDays(3));
+        eventRequest = new EventRequest("TechnoGig", "ABC Events", LocalDateTime.now().toString(), LocalDateTime.now().plusDays(3).toString());
+        event = new Event(1L, "TechnoGig", "ABC Events", LocalDateTime.now().toString(), LocalDateTime.now().plusDays(3).toString());
+
     }
 
     @AfterEach
@@ -69,7 +70,7 @@ class EventServiceTest {
 
     @Test
     void updateEvent() {
-        Event updatedEvent = new Event(1L, "ABC Events", "ABC Events", LocalDateTime.now(), LocalDateTime.now().plusDays(3));
+        Event updatedEvent = new Event(1L, "ABC Events", "ABC Events", LocalDateTime.now().toString(), LocalDateTime.now().plusDays(3).toString());
         when(eventRepo.findById(ArgumentMatchers.any())).thenReturn(Optional.of(event));
         when(eventRepo.save(ArgumentMatchers.any())).thenReturn(updatedEvent);
         Event updatedEventInDB = eventService.updateEvent(event);

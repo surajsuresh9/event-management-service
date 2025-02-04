@@ -23,8 +23,8 @@ class EventRepoTest {
 
     @BeforeEach
     public void setUp() {
-        event1 = new Event(null, "Bryan Adams Concert", "ABC Events", LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(3));
-        event2 = new Event(null, "Linkin Park Concert", "DEF Events", LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(5));
+        event1 = new Event(null, "Bryan Adams Concert", "ABC Events", LocalDateTime.now().plusDays(1).toString(), LocalDateTime.now().plusDays(3).toString());
+        event2 = new Event(null, "Linkin Park Concert", "DEF Events", LocalDateTime.now().plusDays(1).toString(), LocalDateTime.now().plusDays(5).toString());
         eventRepo.save(event1);
         eventRepo.save(event2);
     }
@@ -36,7 +36,7 @@ class EventRepoTest {
 
     @Test
     void findByStartDateBetween() {
-        List<Event> events = eventRepo.findByStartDateBetween(LocalDateTime.now(), LocalDateTime.now().plusDays(10));
+        List<Event> events = eventRepo.findByStartDateBetween(LocalDateTime.now().toString(), LocalDateTime.now().plusDays(10).toString());
         Assertions.assertEquals(2, events.size());
         Assertions.assertNotNull(events);
     }
